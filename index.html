@@ -5,24 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VK Mini App</title>
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <h1>VK Mini App</h1>
-        <button id="openSiteButton">Открыть сайт</button>
-    </div>
+    <iframe src="http://localhost:3000" id="proxyFrame"></iframe>
     <script>
         // Инициализация VK Bridge
         vkBridge.send('VKWebAppInit');
 
-        // Обработка клика по кнопке
-        document.getElementById('openSiteButton').addEventListener('click', function() {
-            vkBridge.send('VKWebAppOpen', {
-                url: 'https://kood.kurgan-med.ru'
-            }).catch((error) => {
-                console.error('Ошибка открытия сайта:', error);
-                alert('Не удалось открыть сайт.');
-            });
+        // Пример обработки события
+        vkBridge.subscribe((event) => {
+            console.log(event);
         });
     </script>
 </body>
